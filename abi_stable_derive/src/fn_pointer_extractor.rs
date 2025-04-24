@@ -262,9 +262,11 @@ impl<'a> VisitMut for TypeVisitor<'a> {
         let is_unsafe = func.unsafety.is_some();
 
         let abi = func.abi.as_ref().map(|x| x.name.as_ref());
-        const ABI_ERR: &str = "must write `extern \"C\" fn` for function pointer types.";
+        const ABI_ERR: &str =
+            "must write `extern \"C\" fn` or `extern \"C-unwind\" fn` for function pointer types.";
         match abi {
             Some(Some(abi)) if *abi == ctokens.c_abi_lit => {}
+            Some(Some(abi)) if *abi == ctokens.c_unwind_abi_lit => {}
             Some(Some(abi)) => {
                 self.vars
                     .errors

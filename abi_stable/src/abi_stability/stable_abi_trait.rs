@@ -1384,6 +1384,28 @@ unsafe impl StableAbi for unsafe extern "C" fn() {
     const LAYOUT: &'static TypeLayout = empty_extern_fn_layout!(unsafe extern "C" fn());
 }
 
+#[cfg(feature = "rust_1_84")]
+unsafe impl GetStaticEquivalent_ for extern "C-unwind" fn() {
+    type StaticEquivalent = Self;
+}
+#[cfg(feature = "rust_1_84")]
+unsafe impl StableAbi for extern "C-unwind" fn() {
+    type IsNonZeroType = True;
+
+    const LAYOUT: &'static TypeLayout = empty_extern_fn_layout!(extern "C-unwind" fn());
+}
+
+#[cfg(feature = "rust_1_84")]
+unsafe impl GetStaticEquivalent_ for unsafe extern "C-unwind" fn() {
+    type StaticEquivalent = Self;
+}
+#[cfg(feature = "rust_1_84")]
+unsafe impl StableAbi for unsafe extern "C-unwind" fn() {
+    type IsNonZeroType = True;
+
+    const LAYOUT: &'static TypeLayout = empty_extern_fn_layout!(unsafe extern "C-unwind" fn());
+}
+
 /// A function that returns the TypeLayout of an `unsafe extern "C" fn()`
 #[doc(hidden)]
 pub const UNSAFE_EXTERN_FN_LAYOUT: extern "C" fn() -> &'static TypeLayout =

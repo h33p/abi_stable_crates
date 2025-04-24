@@ -20,6 +20,7 @@ impl StartLenTokens {
 #[derive(Debug)]
 pub(crate) struct FnPointerTokens {
     pub(crate) c_abi_lit: ::syn::LitStr,
+    pub(crate) c_unwind_abi_lit: ::syn::LitStr,
     pub(crate) static_: Ident,
     pub(crate) underscore: Ident,
 }
@@ -28,6 +29,7 @@ impl FnPointerTokens {
     pub fn new(span: Span) -> Self {
         Self {
             c_abi_lit: syn::parse_str(r#""C""#).expect("BUG"),
+            c_unwind_abi_lit: syn::parse_str(r#""C-unwind""#).expect("BUG"),
             static_: Ident::new("static", span),
             underscore: Ident::new("_", span),
         }
